@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YuYuBro Tic Tac Toe</title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+<body>
+
+<table id="board">
+  <tr>
+    <td id="0,0"></td>
+    <td id="0,1"></td>
+    <td id="0,2"></td>
+  </tr>
+  <tr>
+    <td id="1,0"></td>
+    <td id="1,1"></td>
+    <td id="1,2"></td>
+  </tr>
+  <tr>
+    <td id="2,0"></td>
+    <td id="2,1"></td>
+    <td id="2,2"></td>
+  </tr>
+</table>
+
+<script>
+  let board = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+  ];
+  let currentPlayer = 'X';
+  let gameOver = false;
+
+  // Get all the td elements in the table
+  let cells = document.getElementsByTagName('td');
+
+  // Add an event listener to each td element
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener('click', function() {
+      // Get the row and column of the clicked cell
+      let row = this.id.split(',')[0];
+      let col = this.id.split(',')[1];
+
+      // Make sure the selected spot is empty and the game is not over
+      if (board[row][col] === '' && !gameOver) {
+        // Update the board and the cell's text with the current player's symbol
+        board[row][col] = currentPlayer;
+        this.innerText = currentPlayer;
+
+        // Check for a win or a draw
+        checkWin();
+        checkDraw();
+
+        // Switch to the other player
+        currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+      }
+    });
+  }
+
+  function checkWin() {
+    // Check rows
+    for (let i = 0; i < 3; i++) {
+      if (board[i][0] === currentPlayer && board[i][1] === currentPlayer && board[i][2] === currentPlayer) {
+        gameOver = true;
+        alert(currentPlayer + ' wins!');
+      }
+    }
+
+    // Check columns
+    for (let i = 0; i < 3; i++) {
+      if (board[0][i] === currentPlayer && board[1][i] === currentPlayer && board[2][i] === currentPlayer) {
+        gameOver = true;
+        alert(currentPlayer + ' wins!');
+      }
+    }
+
+    // Check diagonals
+    if (board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) {
+      gameOver = true;
+      alert(currentPlayer + ' wins!');
+    }
+    if (board[0][2] === currentPlayer && board[1][1] === currentPlayer && board[2][0] === currentPlayer) {
+      gameOver = true;
+      alert(currentPlayer + ' wins!');
+    }
+  }
+
+  function checkDraw() {
+    let draw = true;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === '') {
+          draw = false;
+        }
+      }
+    }
+    if (draw) {
+      gameOver = true;
+      alert("It's a draw!");
+    }
+  }
+</script>
+</body>
+</html>

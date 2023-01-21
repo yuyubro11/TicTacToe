@@ -1,0 +1,21 @@
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  td {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 48px;
+    border: 1px solid black;
+  }
+  
+  #board {
+    width: 300px;
+  }
+  
+  .win {
+    background-color: lightgreen;
+  }
+  
